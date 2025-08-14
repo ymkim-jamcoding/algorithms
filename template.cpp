@@ -9,7 +9,7 @@ using namespace std;
 #define MIN (-1234567891)
 
 #ifdef LOCAL
-ostream _log(cout.rdbuf());
+ostream _log(cout.rdbuf()); // cout 대용 로그용 ex) _log << "hi" << endl;
 #else
 struct nullstream : std::ostream {
     nullstream()
@@ -36,6 +36,7 @@ nullstream _log;
 #include <vector>
 void solution()
 {
+    
 }
 
 /**

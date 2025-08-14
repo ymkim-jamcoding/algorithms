@@ -2,6 +2,7 @@
 RAW_GOALS := $(MAKECMDGOALS)
 dir := $(word 1, $(RAW_GOALS))
 t := $(test)
+i := 0
 test_count := $(shell ls $(dir)/test-output-*.txt 2>/dev/null | wc -l)
 
 YELLOW := \033[38;5;208m
@@ -50,24 +51,27 @@ help:
 	@echo "         - Push changes with a custom commit message"
 	@echo
 	@echo
-	@echo "$(GREEN)make [number]$(RESET)"
+	@echo "$(GREEN)make [p_number]$(RESET)"
 	@echo "         - boj problem number (e.g., 18111) to create a directory and files"
-	@echo "         - Run all tests for that problem"
+	@echo "         - Run all tests for [p_number] problem"
 	@echo
-	@echo "$(GREEN)make [number] t=[number]$(RESET)"
-	@echo "         - Run specific test case"
+	@echo "$(GREEN)make [p_number] t=[t_number]$(RESET)"
+	@echo "         - Run test case [t_number]"
+	@echo
+	@echo "$(GREEN)make [p_number] i=[i_number]$(RESET)"
+	@echo "         - Create test case files numbered 1 to [i_number]"
+	@echo "         - Run all tests for [p_number] problem"
+	@echo
 
 $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS)):
 	@echo "addr - https://boj.kr/$(dir)";
 
 	@if [ -d "$(dir)" ]; then \
-		./util_test_cpp.sh $(dir) $(test_count) $(t); \
+		INIT_TEST=$(i) ./util_test_cpp.sh $(dir) $(test_count) $(t); \
 		./util_make_md.sh $(dir); \
 	else \
 		mkdir -p $(dir);\
 		./util_test_cpp.sh $(dir) $(test_count) $(t); \
 		./util_make_md.sh $(dir); \
 		./util_get_test_case.sh $(dir) true;\
-		code $(dir)/$(dir).md;\
-		code $(dir)/$(dir).cpp;\
 	fi
