@@ -1,10 +1,10 @@
 
 RAW_GOALS := $(MAKECMDGOALS)
 dir := $(word 1, $(RAW_GOALS))
-target_test_number := $(test)
+t := $(test)
 test_count := $(shell ls $(dir)/test-output-*.txt 2>/dev/null | wc -l)
 
-IGNORED_TARGETS := all push clean run
+IGNORED_TARGETS := all push clean run help
 
 SRCS=$(wildcard $(dir)/*.cpp)
 
@@ -13,27 +13,41 @@ m ?= $(DATE)
 
 override MAKECMDGOALS := $(word 1, $(RAW_GOALS))
 
-.PHONY: all push clean $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS))
+.PHONY: all push clean help $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS))
 
-all:
-	@echo "Default build"
+all: help
 
 push:
 	git add .
 	git commit -m "$(m)"
 	git push
 
+help:
+	@echo "가능한 명령어"
+	@echo
+	@echo "make push"
+	@echo "         - Push changes with current date and time as commit message"
+	@echo "make push m=\"[string]\""
+	@echo "         - Push changes with a custom commit message"
+	@echo
+	@echo "make [number]"
+	@echo "         - boj problem number (e.g., 18111) to create a directory and files or run tests"
+	@echo "make [number] t=[number]"
+	@echo "         - test number to run specific test case"
+	@echo
+	@echo "make help"
+
 $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS)):
 	@echo "addr - https://boj.kr/$(dir)";
 
 	@if [ -d "$(dir)" ]; then \
-		./util_test_cpp.sh $(dir) $(test_count) $(target_test_number); \
+		./util_test_cpp.sh $(dir) $(test_count) $(t); \
 		./util_make_md.sh $(dir); \
 	else \
 		mkdir -p $(dir);\
-		./util_test_cpp.sh $(dir) $(test_count) $(target_test_number); \
+		./util_test_cpp.sh $(dir) $(test_count) $(t); \
 		./util_make_md.sh $(dir); \
-		./util_get_test_answer.sh $(dir) true;\
+		./util_get_test_case.sh $(dir) true;\
 		code $(dir)/$(dir).md;\
 		code $(dir)/$(dir).cpp;\
 	fi

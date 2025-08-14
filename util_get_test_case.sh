@@ -13,8 +13,8 @@ count=$(expr $count / 2)
 if [ "$count" -eq 0 ]; then
     echo -e "\033[38;5;208men - Failed to crawl the test cases. Please enter them manually into the file.\033[0m"
     echo -e "\033[38;5;208mkr - 테스트 케이스 크롤링에 실패 했어요. 직접 파일에 넣어주세요.\033[0m\n"
-    touch $url_number/test-input-1.txt
-    touch $url_number/test-output-1.txt
+    touch $url_number/test-input-0.txt
+    touch $url_number/test-output-0.txt
     exit 9
 fi
 
