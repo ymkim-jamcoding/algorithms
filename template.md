@@ -4,7 +4,6 @@
 # Problem
 
 # Logic
-
 ##### 문제 유형 파악
 
 ##### 제약 조건 파악
@@ -20,3 +19,5 @@
 # My Code
 
 ## cpp
+
+## python

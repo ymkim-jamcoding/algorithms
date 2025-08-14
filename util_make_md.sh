@@ -102,9 +102,15 @@ insert_boj_label() {
     local md_path="$problem_id/$problem_id.md"
     local tags=$(echo $(get_tags_with_boj $url_number))
 
-    sed -i '' "2i\\
+if [ "$(uname)" = "Darwin" ]; then
+sed -i '' "2i\\
 tags: [$tags]
 " "$md_path"
+else
+sed -i "2i\\
+tags: [$tags]
+" "$md_path"
+fi
 }
 
 copy_template_md() {
@@ -112,9 +118,16 @@ copy_template_md() {
 }
 
 insert_boj_url() {
-    sed -i '' "5i\\
+
+if [ "$(uname)" = "Darwin" ]; then
+sed -i '' "5i\\
 - [$url]($url)
-" $url_number/$url_number.md
+" "$url_number/$url_number.md"
+else
+sed -i "5i\\
+- [$url]($url)
+" "$url_number/$url_number.md"
+fi
 }
 
 if [ ! -e "$url_number/$url_number.md" ]; then
