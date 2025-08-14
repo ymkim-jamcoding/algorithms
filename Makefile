@@ -27,13 +27,17 @@ help:
 	@echo
 	@echo "make push"
 	@echo "         - Push changes with current date and time as commit message"
+	@echo
 	@echo "make push m=\"[string]\""
 	@echo "         - Push changes with a custom commit message"
 	@echo
+	@echo
 	@echo "make [number]"
 	@echo "         - boj problem number (e.g., 18111) to create a directory and files or run tests"
+	@echo
 	@echo "make [number] t=[number]"
 	@echo "         - test number to run specific test case"
+	@echo
 	@echo
 	@echo "make help"
 
