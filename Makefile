@@ -9,7 +9,7 @@ GREEN := \033[38;5;34m
 RED := \033[38;5;196m
 RESET := \033[0m
 
-IGNORED_TARGETS := all push clean run help
+IGNORED_TARGETS := all push clean run help pull sync
 
 SRCS=$(wildcard $(dir)/*.cpp)
 
@@ -18,9 +18,14 @@ m ?= $(DATE)
 
 override MAKECMDGOALS := $(word 1, $(RAW_GOALS))
 
-.PHONY: all push clean help $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS))
+.PHONY: all push clean help pull sync $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS))
 
 all: help
+
+sync: pull
+
+pull:
+	git pull
 
 push:
 	git add .
@@ -34,6 +39,10 @@ help:
 	@echo "make help"
 	@echo
 	@echo
+	@echo "$(YELLOW)make pull$(RESET)"
+	@echo "$(YELLOW)make sync$(RESET)"
+	@echo "         - Pull updates from the repository"
+	@echo
 	@echo "$(YELLOW)make push$(RESET)"
 	@echo "         - Push changes with current date and time as commit message"
 	@echo
@@ -43,10 +52,10 @@ help:
 	@echo
 	@echo "$(GREEN)make [number]$(RESET)"
 	@echo "         - boj problem number (e.g., 18111) to create a directory and files"
-	@echo "         - run all tests for that problem"
+	@echo "         - Run all tests for that problem"
 	@echo
 	@echo "$(GREEN)make [number] t=[number]$(RESET)"
-	@echo "         - run specific test case"
+	@echo "         - Run specific test case"
 
 $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS)):
 	@echo "addr - https://boj.kr/$(dir)";
