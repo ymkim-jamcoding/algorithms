@@ -5,6 +5,15 @@ test_count=$2
 target_test_number=$3
 
 if ls $dir/$dir.cpp >/dev/null 2>&1; then \
+
+  if ls $dir/test-input-$target_test_number.txt >/dev/null 2>&1; then \
+    for i in $(seq 1 $target_test_number); do
+      touch $url_number/test-input-$i.txt
+      touch $url_number/test-output-$i.txt
+    done
+    exit 8
+  fi
+
   echo
   echo "[cpp]"
   g++ -std=c++17 -Wall -Wextra -Werror -o $dir/$dir.out $dir/*.cpp; \
