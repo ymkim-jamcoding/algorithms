@@ -4,6 +4,11 @@ dir := $(word 1, $(RAW_GOALS))
 t := $(test)
 test_count := $(shell ls $(dir)/test-output-*.txt 2>/dev/null | wc -l)
 
+YELLOW := \033[38;5;208m
+GREEN := \033[38;5;34m
+RED := \033[38;5;196m
+RESET := \033[0m
+
 IGNORED_TARGETS := all push clean run help
 
 SRCS=$(wildcard $(dir)/*.cpp)
@@ -25,21 +30,23 @@ push:
 help:
 	@echo "가능한 명령어"
 	@echo
-	@echo "make push"
+	@echo "make"
+	@echo "make help"
+	@echo
+	@echo
+	@echo "$(YELLOW)make push$(RESET)"
 	@echo "         - Push changes with current date and time as commit message"
 	@echo
-	@echo "make push m=\"[string]\""
+	@echo "$(YELLOW)make push m=\"[string]\"$(RESET)"
 	@echo "         - Push changes with a custom commit message"
 	@echo
 	@echo
-	@echo "make [number]"
-	@echo "         - boj problem number (e.g., 18111) to create a directory and files or run tests"
+	@echo "$(GREEN)make [number]$(RESET)"
+	@echo "         - boj problem number (e.g., 18111) to create a directory and files"
+	@echo "         - run all tests for that problem"
 	@echo
-	@echo "make [number] t=[number]"
-	@echo "         - test number to run specific test case"
-	@echo
-	@echo
-	@echo "make help"
+	@echo "$(GREEN)make [number] t=[number]$(RESET)"
+	@echo "         - run specific test case"
 
 $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS)):
 	@echo "addr - https://boj.kr/$(dir)";
