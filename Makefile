@@ -28,7 +28,9 @@ pull:
 	git pull
 
 push:
-	git add . && git commit -m "$(m)" && git push
+	git add .
+	git commit -m "$(m)"
+	git push
 
 help:
 	@echo "가능한 명령어"
