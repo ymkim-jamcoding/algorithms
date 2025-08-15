@@ -16,8 +16,8 @@ class Pos(Enum):
 options = [
     [
         "cpp",
-        r" \*------------------------------------------------------------------------------\n \*/\n",
-        r"/\*\*\n \*------------------------------------------------------------------------------\n \*  /..*",
+        r" \*start---------------------------------------------------------------------------------------------\n \*/\n",
+        r"/\*\*\n \*end-----------------------------------------------------------------------------------------------",
         "## cpp",
         "cpp"
     ],
@@ -52,8 +52,10 @@ def run(index):
         start_index = start_match.end()
         end_index = end_match.start()
         code_between = content[start_index:end_index]
+        if len(code_between) <= 2:
+            print(f"extract code error 1 - {options[index][Pos.LANGUAGE.value]} {start_index}~{end_index}")
     else:
-        print(f"{options[index][Pos.LANGUAGE.value]} Markers not found.")
+        print(f"extract code error 2 - {options[index][Pos.LANGUAGE.value]} Markers not found.")
 
     with open(output_path, 'r', encoding='utf-8') as f:
         md_lines = []
@@ -64,8 +66,8 @@ def run(index):
 
     md_lines.append(
         f"\n```{options[index][Pos.LANGUAGE.value]} title=\"boj/{file_number}.{options[index][Pos.EXT.value]}\"\n")
-    md_lines.append(code_between + "\n")
-    md_lines.append("```\n")
+    md_lines.append(code_between)
+    md_lines.append("\n```\n")
 
     if index + 1 < len(options):
         md_lines.append(f"\n{options[index + 1][Pos.DELIMITER.value]}\n")
