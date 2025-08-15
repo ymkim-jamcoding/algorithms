@@ -1,0 +1,54 @@
+#!/bin/bash
+source .util/.env
+
+dir=$1
+test_count=$2
+target_test_number=$3
+
+if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
+
+  if [ "$INIT_TEST" -ne 0 ] && ! ls boj/$dir/test-input-$INIT_TEST.txt >/dev/null 2>&1; then \
+    .util/.util_function.sh 2 $dir
+
+    for i in $(seq 1 $INIT_TEST); do
+      touch boj/$dir/test-input-$i.txt
+      touch boj/$dir/test-output-$i.txt
+      if $OPEN_TEST_FILE_WHEN_CRAWLING_FAILED; then
+        code boj/$dir/test-input-$i.txt
+        code boj/$dir/test-output-$i.txt
+      fi
+    done
+    if $OPEN_TEST_FILE_WHEN_CRAWLING_FAILED; then
+      code boj/$dir/test-input-1.txt
+    fi
+    echo
+    echo -e "\033[38;5;208mkr - 테스트 케이스를 각 번호에 맞게 직접 넣어요.\033[0m\n"
+    exit 8
+  fi
+
+  if ! ls boj/$dir/test-input-1.txt >/dev/null 2>&1; then
+    .util/.util_function.sh 1 $dir
+    exit 9
+  fi
+
+  echo
+  echo "[cpp]"
+  g++ -std=c++17 -Wall -Wextra -Werror -o boj/$dir/$dir.out boj/$dir/*.cpp; \
+  ./boj/$dir/$dir.out $dir $test_count $target_test_number; \
+  .util/.util_test_case_check.sh $dir $test_count $target_test_number; \
+
+else \
+  cp .util/.template.cpp boj/$dir/$dir.cpp;
+
+if [ "$(uname)" = "Darwin" ]; then
+sed -i '' "1i\\
+// https://www.acmicpc.net/problem/$dir
+" boj/$dir/$dir.cpp
+else
+sed -i "1i\\
+// https://www.acmicpc.net/problem/$dir
+" boj/$dir/$dir.cpp
+fi
+fi
+
+echo

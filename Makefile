@@ -3,7 +3,7 @@ RAW_GOALS := $(MAKECMDGOALS)
 dir := $(word 1, $(RAW_GOALS))
 t := $(test)
 i := 0
-test_count := $(shell ls $(dir)/test-output-*.txt 2>/dev/null | wc -l)
+test_count := $(shell ls boj/$(dir)/test-output-*.txt 2>/dev/null | wc -l)
 
 YELLOW := \033[38;5;208m
 GREEN := \033[38;5;34m
@@ -12,7 +12,7 @@ RESET := \033[0m
 
 IGNORED_TARGETS := all push clean run help pull sync
 
-SRCS=$(wildcard $(dir)/*.cpp)
+SRCS=$(wildcard boj/$(dir)/*.cpp)
 
 DATE := $(shell TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')
 m ?= $(DATE)
@@ -66,12 +66,12 @@ help:
 $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS)):
 	@echo "addr - https://boj.kr/$(dir)";
 
-	@if [ -d "$(dir)" ]; then \
-		INIT_TEST=$(i) ./.util_test_cpp.sh $(dir) $(test_count) $(t); \
-		./.util_make_md.sh $(dir); \
+	@if [ -d "boj/$(dir)" ]; then \
+		INIT_TEST=$(i) .util/.util_test_cpp.sh $(dir) $(test_count) $(t); \
+		.util/.util_make_md.sh $(dir); \
 	else \
-		mkdir -p $(dir);\
-		./.util_test_cpp.sh $(dir) $(test_count) $(t); \
-		./.util_make_md.sh $(dir); \
-		./.util_get_test_case.sh $(dir) true;\
+		mkdir -p boj/$(dir);\
+		.util/.util_test_cpp.sh $(dir) $(test_count) $(t); \
+		.util/.util_make_md.sh $(dir); \
+		.util/.util_get_test_case.sh $(dir) true;\
 	fi

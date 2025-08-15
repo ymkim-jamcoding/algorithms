@@ -11,14 +11,14 @@ count=$(echo $html | grep -o 'sample-output-' | wc -l)
 count=$(expr $count / 2)
 
 if [ "$count" -eq 0 ]; then
-    ./.util_function.sh 1 $url_number
+    .util/.util_function.sh 1 $url_number
     exit 9
 fi
 
 for i in $(seq 1 $count); do
     result=$(echo $html | perl -0777 -ne "print \$1 if /<pre class=\"sampledata\" id=\"sample-input-$i\">(.*?)<\/pre>/s")
     if [ "$is_test" == "true" ]; then
-        echo $result >$url_number/test-input-$i.txt
+        echo $result > boj/$url_number/test-input-$i.txt
     else
         echo $result
     fi
@@ -26,10 +26,10 @@ for i in $(seq 1 $count); do
     # result=$(echo $html | perl -0777 -ne "print \$1 if /<pre class=\"sampledata\" id=\"sample-output-$i\">(.*?)<\/pre>/s" | sed 's/<[^>]*>//g')
     result=$(echo $html | perl -0777 -ne "print \$1 if /<pre class=\"sampledata\" id=\"sample-output-$i\">(.*?)<\/pre>/s")
     if [ "$is_test" == "true" ]; then
-        echo $result >$url_number/test-output-$i.txt
+        echo $result > boj/$url_number/test-output-$i.txt
     else
         echo $result
     fi
 done
 
-./.util_function.sh 2 $url_number
+.util/.util_function.sh 2 $url_number

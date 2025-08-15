@@ -94,8 +94,8 @@ public:
 
 void _run_test(const int problem_number, const int test_number)
 {
-    string test_input_file_name = to_string(problem_number) + "/test-input-" + to_string(test_number) + ".txt";
-    string my_output_file_name = to_string(problem_number) + "/my-output-" + to_string(test_number) + ".txt";
+    string test_input_file_name = "boj/" + to_string(problem_number) + "/test-input-" + to_string(test_number) + ".txt";
+    string my_output_file_name = "boj/" + to_string(problem_number) + "/my-output-" + to_string(test_number) + ".txt";
 
     ifstream test_input(test_input_file_name);
     ofstream my_output(my_output_file_name);

@@ -99,7 +99,7 @@ get_tags_with_boj() {
 
 insert_boj_label() {
     local problem_id=$url_number
-    local md_path="$problem_id/$problem_id.md"
+    local md_path="boj/$problem_id/$problem_id.md"
     local tags=$(echo $(get_tags_with_boj $url_number))
 
 if [ "$(uname)" = "Darwin" ]; then
@@ -114,7 +114,7 @@ fi
 }
 
 copy_template_md() {
-    cp ./.template.md "$url_number/$url_number.md"
+    cp .util/.template.md boj/"$url_number/$url_number.md"
 }
 
 insert_boj_url() {
@@ -122,18 +122,18 @@ insert_boj_url() {
 if [ "$(uname)" = "Darwin" ]; then
 sed -i '' "5i\\
 - [$url]($url)
-" "$url_number/$url_number.md"
+" boj/"$url_number/$url_number.md"
 else
 sed -i "5i\\
 - [$url]($url)
-" "$url_number/$url_number.md"
+" boj/"$url_number/$url_number.md"
 fi
 }
 
-if [ ! -e "$url_number/$url_number.md" ]; then
+if [ ! -e "boj/$url_number/$url_number.md" ]; then
     copy_template_md
     insert_boj_url
     insert_boj_label
 fi
 
-python3 ./.util_extract_code_to_md.py $url_number
+python3 .util/.util_extract_code_to_md.py $url_number
