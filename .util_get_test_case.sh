@@ -11,7 +11,7 @@ count=$(echo $html | grep -o 'sample-output-' | wc -l)
 count=$(expr $count / 2)
 
 if [ "$count" -eq 0 ]; then
-    ./util_function.sh 1 $url_number
+    ./.util_function.sh 1 $url_number
     exit 9
 fi
 
@@ -32,4 +32,4 @@ for i in $(seq 1 $count); do
     fi
 done
 
-./util_function.sh 2 $url_number
+./.util_function.sh 2 $url_number

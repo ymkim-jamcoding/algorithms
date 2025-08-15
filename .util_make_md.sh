@@ -114,7 +114,7 @@ fi
 }
 
 copy_template_md() {
-    cp template.md "$url_number/$url_number.md"
+    cp ./.template.md "$url_number/$url_number.md"
 }
 
 insert_boj_url() {
@@ -136,4 +136,4 @@ if [ ! -e "$url_number/$url_number.md" ]; then
     insert_boj_label
 fi
 
-python3 util_extract_code_to_md.py $url_number
+python3 ./.util_extract_code_to_md.py $url_number

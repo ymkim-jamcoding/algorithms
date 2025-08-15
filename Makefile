@@ -67,11 +67,11 @@ $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS)):
 	@echo "addr - https://boj.kr/$(dir)";
 
 	@if [ -d "$(dir)" ]; then \
-		INIT_TEST=$(i) ./util_test_cpp.sh $(dir) $(test_count) $(t); \
-		./util_make_md.sh $(dir); \
+		INIT_TEST=$(i) ./.util_test_cpp.sh $(dir) $(test_count) $(t); \
+		./.util_make_md.sh $(dir); \
 	else \
 		mkdir -p $(dir);\
-		./util_test_cpp.sh $(dir) $(test_count) $(t); \
-		./util_make_md.sh $(dir); \
-		./util_get_test_case.sh $(dir) true;\
+		./.util_test_cpp.sh $(dir) $(test_count) $(t); \
+		./.util_make_md.sh $(dir); \
+		./.util_get_test_case.sh $(dir) true;\
 	fi
