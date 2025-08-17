@@ -10,7 +10,7 @@ GREEN := \033[38;5;34m
 RED := \033[38;5;196m
 RESET := \033[0m
 
-IGNORED_TARGETS := all push clean run help pull sync
+IGNORED_TARGETS := all push clean run help pull
 
 SRCS=$(wildcard boj/$(dir)/*.cpp)
 
@@ -19,11 +19,9 @@ m ?= $(DATE)
 
 override MAKECMDGOALS := $(word 1, $(RAW_GOALS))
 
-.PHONY: all push clean help pull sync $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS))
+.PHONY: all push clean help pull $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS))
 
 all: help
-
-sync: pull
 
 pull:
 	git pull
@@ -41,7 +39,6 @@ help:
 	@echo "         - g++ -std=c++17 -Wall -Wextra -Werror -o answer.out {my_code_file.cpp} && ./answer.out"
 	@echo
 	@echo "$(YELLOW)make pull$(RESET)"
-	@echo "$(YELLOW)make sync$(RESET)"
 	@echo "         - Pull updates from the repository"
 	@echo
 	@echo "$(YELLOW)make push$(RESET)"
