@@ -14,8 +14,8 @@ case $case in
     echo
     ;;
   2)
-    code --goto boj/$number/$number.cpp:40
-    code --goto boj/$number/$number.md:10
+    code --goto boj/$number/$number.cpp:8
+    code --goto boj/$number/$number.md:35
     ;;
   3|4)
     echo "234"

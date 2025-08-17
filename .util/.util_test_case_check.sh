@@ -12,6 +12,8 @@ if [ -n "$test_target" ]; then
     else
         echo -e "Test case $test_target: \033[31mX\033[0m"
     fi
+    cat "boj/$problem_number/my-output-$test_target.txt";
+    echo -e "\n";
 else
     for i in $(seq 1 $test_case); do
         if diff -b "boj/$problem_number/test-output-$i.txt" "boj/$problem_number/my-output-$i.txt" >/dev/null; then
@@ -20,6 +22,8 @@ else
         else
             echo -e "Test case $i: \033[31mX\033[0m"
         fi
+        cat "boj/$problem_number/my-output-$i.txt";
+        echo -e "\n";
     done
-    echo "- $correct_count/$test_case"
+    echo "- $correct_count/$test_case";
 fi

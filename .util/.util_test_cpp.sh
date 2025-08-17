@@ -33,7 +33,7 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
 
   echo;
   echo "[cpp]";
-  python3 .util/.util_main_replacement.py $dir;
+  python3 .util/.util_cpp_replacement.py $dir;
   # g++ -std=c++17 -Wall -Wextra -Werror -o boj/$dir/$dir.out boj/$dir/_solve_$dir.cpp .util/.template_cpp_main.cpp;
   g++ -std=c++17 -Wall -Wextra -Werror -DLOCAL -o boj/$dir/$dir.out boj/$dir/_solve_$dir.cpp .util/.template_cpp_main.cpp;
   ./boj/$dir/$dir.out $dir $test_count $target_test_number;
