@@ -27,18 +27,21 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
   fi
 
   if ! ls boj/$dir/test-input-1.txt >/dev/null 2>&1; then
-    .util/.util_function.sh 1 $dir
+    .util/.util_function.sh 1 $dir;
     exit 9
   fi
 
-  echo
-  echo "[cpp]"
-  g++ -std=c++17 -Wall -Wextra -Werror -o boj/$dir/$dir.out boj/$dir/*.cpp; \
-  ./boj/$dir/$dir.out $dir $test_count $target_test_number; \
-  .util/.util_test_case_check.sh $dir $test_count $target_test_number; \
+  echo;
+  echo "[cpp]";
+  python3 .util/.util_main_replacement.py $dir;
+  # g++ -std=c++17 -Wall -Wextra -Werror -o boj/$dir/$dir.out boj/$dir/_solve_$dir.cpp .util/.template_cpp_main.cpp;
+  g++ -std=c++17 -Wall -Wextra -Werror -DLOCAL -o boj/$dir/$dir.out boj/$dir/_solve_$dir.cpp .util/.template_cpp_main.cpp;
+  ./boj/$dir/$dir.out $dir $test_count $target_test_number;
+  .util/.util_test_case_check.sh $dir $test_count $target_test_number;
+  rm boj/$dir/_solve_$dir.cpp
 
 else \
-  cp .util/.template.cpp boj/$dir/$dir.cpp;
+  cp .util/.template_cpp_user.cpp boj/$dir/$dir.cpp;
 
 if [ "$(uname)" = "Darwin" ]; then
 sed -i '' "1i\\
