@@ -1,5 +1,5 @@
 #!/bin/bash
-source .util/.env
+source .env
 
 dir=$1
 test_count=$2
@@ -41,7 +41,7 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
   rm boj/$dir/_solve_$dir.cpp
 
 else \
-  cp .util/.template_cpp_user.cpp boj/$dir/$dir.cpp;
+  cp my_cpp_template.cpp boj/$dir/$dir.cpp;
 
 if [ "$(uname)" = "Darwin" ]; then
 sed -i '' "1i\\
