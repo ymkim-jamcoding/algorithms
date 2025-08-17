@@ -34,11 +34,11 @@ push:
 	git push
 
 help:
-	@echo "가능한 명령어"
-	@echo
 	@echo "make"
 	@echo "make help"
 	@echo
+	@echo "$(RED)수동 컴파일 && 실행 방법$(RESET)"
+	@echo "         - g++ -std=c++17 -Wall -Wextra -Werror -o answer.out {my_code_file.cpp} && ./answer.out"
 	@echo
 	@echo "$(YELLOW)make pull$(RESET)"
 	@echo "$(YELLOW)make sync$(RESET)"
@@ -50,7 +50,6 @@ help:
 	@echo "$(YELLOW)make push m=\"[string]\"$(RESET)"
 	@echo "         - Push changes with a custom commit message"
 	@echo
-	@echo
 	@echo "$(GREEN)make [p_number]$(RESET)"
 	@echo "         - boj problem number (e.g., 18111) to create a directory and files"
 	@echo "         - Run all tests for [p_number] problem"
@@ -61,7 +60,6 @@ help:
 	@echo "$(GREEN)make [p_number] i=[i_number]$(RESET)"
 	@echo "         - Create test case files numbered 1 to [i_number]"
 	@echo "         - Run all tests for [p_number] problem"
-	@echo
 
 $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS)):
 	@echo "addr - https://boj.kr/$(dir)";
