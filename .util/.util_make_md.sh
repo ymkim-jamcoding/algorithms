@@ -1,4 +1,5 @@
 #!/bin/bash
+source .env
 
 set -e
 
@@ -130,10 +131,13 @@ sed -i "5i\\
 fi
 }
 
-if [ ! -e "boj/$url_number/$url_number.md" ]; then
-    copy_template_md
-    insert_boj_url
-    insert_boj_label
-fi
 
-python3 .util/.util_extract_code_to_md.py $url_number
+if $MAKE_MARKDOWN; then
+    if [ ! -e "boj/$url_number/$url_number.md" ]; then
+        copy_template_md
+        insert_boj_url
+        insert_boj_label
+    fi
+
+    python3 .util/.util_extract_code_to_md.py $url_number;
+fi

@@ -1,4 +1,5 @@
 #!/bin/bash
+source .env
 
 case=$1
 number=$2
@@ -15,7 +16,9 @@ case $case in
     ;;
   2)
     code --goto boj/$number/$number.cpp:8
-    code --goto boj/$number/$number.md:35
+    if $MAKE_MARKDOWN; then
+      code --goto boj/$number/$number.md:35
+    fi
     ;;
   3|4)
     echo "234"
