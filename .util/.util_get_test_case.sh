@@ -20,7 +20,7 @@ fi
 for i in $(seq 1 $count); do
     result=$(echo $html | perl -0777 -ne "print \$1 if /<pre class=\"sampledata\" id=\"sample-input-$i\">(.*?)<\/pre>/s")
     if [ "$is_test" == "true" ]; then
-        echo $result > boj/$url_number/test-input-$i.txt
+        echo $result > boj/$url_number/t_${i}_input.txt
     else
         echo $result
     fi
@@ -28,7 +28,7 @@ for i in $(seq 1 $count); do
     # result=$(echo $html | perl -0777 -ne "print \$1 if /<pre class=\"sampledata\" id=\"sample-output-$i\">(.*?)<\/pre>/s" | sed 's/<[^>]*>//g')
     result=$(echo $html | perl -0777 -ne "print \$1 if /<pre class=\"sampledata\" id=\"sample-output-$i\">(.*?)<\/pre>/s")
     if [ "$is_test" == "true" ]; then
-        echo $result > boj/$url_number/test-output-$i.txt
+        echo $result > boj/$url_number/t_${i}_output_.txt
     else
         echo $result
     fi

@@ -13,8 +13,8 @@ def solve_module(path):
     runpy.run_path(path, run_name="__main__")
 
 def run_test(problem_number, test_number):
-    input_path = f"./boj/{problem_number}/test-input-{test_number}.txt"
-    output_path = f"./boj/{problem_number}/my-output-{test_number}.txt"
+    input_path = f"./boj/{problem_number}/t_{test_number}_input.txt"
+    output_path = f"./boj/{problem_number}/t_{test_number}_output_mine.txt"
     script_path = f"./boj/{problem_number}/{problem_number}.py"
 
     import os

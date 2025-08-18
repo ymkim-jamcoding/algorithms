@@ -24,24 +24,24 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
     exit 0
   fi
 
-  if [ "$INIT_TEST" -ne 0 ] && ! ls boj/$dir/test-input-$INIT_TEST.txt >/dev/null 2>&1; then \
+  if [ "$INIT_TEST" -ne 0 ] && ! ls boj/$dir/t_${INIT_TEST}_input.txt >/dev/null 2>&1; then \
     is_first=true
     first_value=0
     for i in $(seq 1 $INIT_TEST); do
-      if ! ls boj/$dir/test-input-$i.txt >/dev/null 2>&1; then 
+      if ! ls boj/$dir/t_${i}_input.txt >/dev/null 2>&1; then 
         if $is_first; then
           is_first=false
           first_value=$i 
         fi
-        touch boj/$dir/test-input-$i.txt
-        touch boj/$dir/test-output-$i.txt
-        code boj/$dir/test-input-$i.txt
-        code boj/$dir/test-output-$i.txt
+        touch boj/$dir/t_${i}_input.txt
+        touch boj/$dir/t_${i}_output_.txt
+        code boj/$dir/t_${i}_input.txt
+        code boj/$dir/t_${i}_output_.txt
       fi
     done
 
     if ! $is_first; then
-      code boj/$dir/test-input-$first_value.txt
+      code boj/$dir/t_${first_value}_input.txt
     fi
 
     echo
@@ -49,7 +49,7 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
     exit 8
   fi
 
-  if ! ls boj/$dir/test-input-1.txt >/dev/null 2>&1; then
+  if ! ls boj/$dir/t_1_input.txt >/dev/null 2>&1; then
     .util/.util_function.sh 1 $dir;
     exit 9
   fi

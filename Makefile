@@ -3,7 +3,7 @@ RAW_GOALS := $(MAKECMDGOALS)
 dir := $(word 1, $(RAW_GOALS))
 t := $(test)
 i := 0
-test_count := $(shell ls boj/$(dir)/test-output-*.txt 2>/dev/null | wc -l)
+test_count := $(shell ls boj/$(dir)/t_*_output_.txt 2>/dev/null | wc -l)
 
 YELLOW := \033[38;5;208m
 GREEN := \033[38;5;34m
