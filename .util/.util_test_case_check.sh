@@ -1,4 +1,5 @@
 #!/bin/bash
+source .env
 
 problem_number=$1
 test_case=$2
@@ -12,8 +13,10 @@ if [ -n "$test_target" ]; then
     else
         echo -e "Test case $test_target: \033[31mX\033[0m"
     fi
-    cat "boj/$problem_number/my-output-$test_target.txt";
-    echo -e "\n";
+
+    if $ENABLE_PRINT_AUTO_TEST_OUTPUT; then
+        cat "boj/$problem_number/my-output-$test_target.txt";
+    fi
 else
     for i in $(seq 1 $test_case); do
         if diff -b "boj/$problem_number/test-output-$i.txt" "boj/$problem_number/my-output-$i.txt" >/dev/null; then
@@ -22,8 +25,10 @@ else
         else
             echo -e "Test case $i: \033[31mX\033[0m"
         fi
-        cat "boj/$problem_number/my-output-$i.txt";
-        echo -e "\n";
+
+        if $ENABLE_PRINT_AUTO_TEST_OUTPUT; then
+            cat "boj/$problem_number/my-output-$i.txt";
+        fi
     done
     echo "- $correct_count/$test_case";
 fi

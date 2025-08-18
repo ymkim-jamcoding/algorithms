@@ -63,10 +63,12 @@ $(filter-out $(IGNORED_TARGETS), $(MAKECMDGOALS)):
 
 	@if [ -d "boj/$(dir)" ]; then \
 		INIT_TEST=$(i) .util/.util_test_cpp.sh $(dir) $(test_count) $(t); \
+		INIT_TEST=$(i) .util/.util_test_python.sh $(dir) $(test_count) $(t); \
 		.util/.util_make_md.sh $(dir); \
 	else \
 		mkdir -p boj/$(dir);\
 		.util/.util_test_cpp.sh $(dir) $(test_count) $(t); \
+		.util/.util_test_python.sh $(dir) $(test_count) $(t); \
 		.util/.util_make_md.sh $(dir); \
 		.util/.util_get_test_case.sh $(dir) true;\
 	fi

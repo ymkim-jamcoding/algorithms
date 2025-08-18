@@ -1,8 +1,29 @@
 #!/bin/bash
 source .env
 
+YELLOW="\033[38;5;208m"
+GREEN="\033[38;5;34m"
+RED="\033[38;5;196m"
+RESET="\033[0m"
+
 case=$1
 number=$2
+string=$3
+
+color_echo(){
+  local color="$1"
+  local msg="$2"
+
+  if [ "$color" = "yellow" ]; then
+    echo -e "${YELLOW} ${msg} ${END}"
+  elif [ "$color" = "green" ]; then
+    echo -e "${GREEN} ${msg} ${END}"
+  elif [ "$color" = "red" ]; then
+    echo -e "${RED} ${msg} ${END}"
+  else
+    echo "${msg}"
+  fi
+}
 
 case $case in
   1)
@@ -15,13 +36,20 @@ case $case in
     echo
     ;;
   2)
-    code --goto boj/$number/$number.cpp:8
-    if $MAKE_MARKDOWN; then
-      code --goto boj/$number/$number.md:35
+    if $ENABLE_CPP; then
+      code --goto boj/$number/$number.cpp
+    fi
+
+    if $ENABLE_PYTHON; then
+      code --goto boj/$number/$number.py
+    fi
+
+    if $ENABLE_MARKDOWN; then
+      code --goto boj/$number/$number.md
     fi
     ;;
-  3|4)
-    echo "234"
+  3)
+    color_echo "$number" "$string"
     ;;
   *)
     echo ""

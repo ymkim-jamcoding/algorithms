@@ -1,6 +1,10 @@
 #!/bin/bash
 source .env
 
+if ! $ENABLE_MARKDOWN; then
+    exit 0;
+fi
+
 set -e
 
 url_number=$1
@@ -115,7 +119,7 @@ fi
 }
 
 copy_template_md() {
-    cp .util/.template.md boj/"$url_number/$url_number.md"
+    cp my_md_template.md boj/"$url_number/$url_number.md"
 }
 
 insert_boj_url() {
@@ -132,12 +136,11 @@ fi
 }
 
 
-if $MAKE_MARKDOWN; then
-    if [ ! -e "boj/$url_number/$url_number.md" ]; then
-        copy_template_md
-        insert_boj_url
-        insert_boj_label
-    fi
-
-    python3 .util/.util_extract_code_to_md.py $url_number;
+if [ ! -e "boj/$url_number/$url_number.md" ]; then
+    copy_template_md
+    insert_boj_url
+    insert_boj_label
 fi
+
+export $(grep -v '^#' .env | xargs)
+python3 .util/.util_extract_code_to_md.py $url_number;
