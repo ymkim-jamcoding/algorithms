@@ -45,6 +45,13 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
   echo "[cpp - $dir]";
   if $ENABLE_AUTO_TEST; then
 
+    if [[ "$target_test_number" == "i" ]]; then
+      g++ -std=c++17 -Wall -Wextra -Werror -o boj/$dir/$dir.out boj/$dir/$dir.cpp;
+      ./boj/$dir/$dir.out;
+      echo
+      exit 0
+    fi
+
     if [[ "$target_test_number" -gt "$test_count" || "$target_test_number" -lt 0 ]]; then
       echo "$target_test_number is invalid target test number."
       .util/.util_function.sh 3 "yellow" "1 <= valid number <= $test_count"
@@ -59,6 +66,7 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
   else
     g++ -std=c++17 -Wall -Wextra -Werror -o boj/$dir/$dir.out boj/$dir/$dir.cpp
     ./boj/$dir/$dir.out
+    echo
   fi
 
 else \
@@ -75,4 +83,3 @@ sed -i "1i\\
 fi
 fi
 
-echo
