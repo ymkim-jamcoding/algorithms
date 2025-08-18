@@ -10,6 +10,19 @@ test_count=$2
 target_test_number=$3
 
 if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
+  if $ENABLE_AUTO_TEST; then
+    if [[ "$target_test_number" == "i" ]]; then
+      g++ -std=c++17 -Wall -Wextra -Werror -o boj/$dir/$dir.out boj/$dir/$dir.cpp;
+      ./boj/$dir/$dir.out;
+      echo
+      exit 0
+    fi
+  else
+    g++ -std=c++17 -Wall -Wextra -Werror -o boj/$dir/$dir.out boj/$dir/$dir.cpp
+    ./boj/$dir/$dir.out
+    echo
+    exit 0
+  fi
 
   if [ "$INIT_TEST" -ne 0 ] && ! ls boj/$dir/test-input-$INIT_TEST.txt >/dev/null 2>&1; then \
     is_first=true
@@ -44,14 +57,6 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
   echo;
   echo "[cpp - $dir]";
   if $ENABLE_AUTO_TEST; then
-
-    if [[ "$target_test_number" == "i" ]]; then
-      g++ -std=c++17 -Wall -Wextra -Werror -o boj/$dir/$dir.out boj/$dir/$dir.cpp;
-      ./boj/$dir/$dir.out;
-      echo
-      exit 0
-    fi
-
     if [[ "$target_test_number" -gt "$test_count" || "$target_test_number" -lt 0 ]]; then
       echo "$target_test_number is invalid target test number."
       .util/.util_function.sh 3 "yellow" "1 <= valid number <= $test_count"
@@ -63,10 +68,6 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
     ./boj/$dir/$dir.out $dir $test_count $target_test_number;
     .util/.util_test_case_check.sh $dir $test_count $target_test_number;
     rm boj/$dir/_solve_$dir.cpp
-  else
-    g++ -std=c++17 -Wall -Wextra -Werror -o boj/$dir/$dir.out boj/$dir/$dir.cpp
-    ./boj/$dir/$dir.out
-    echo
   fi
 
 else \
