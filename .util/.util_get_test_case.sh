@@ -4,6 +4,8 @@ url_number=$1
 is_test=$2
 url="https://www.acmicpc.net/problem/$url_number"
 
+.util/.util_function.sh 2 $url_number
+
 html=$(curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" $url)
 
 # echo $html
@@ -31,5 +33,3 @@ for i in $(seq 1 $count); do
         echo $result
     fi
 done
-
-.util/.util_function.sh 2 $url_number

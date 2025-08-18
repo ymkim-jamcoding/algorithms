@@ -36,16 +36,16 @@ case $case in
     echo
     ;;
   2)
-    if $ENABLE_CPP; then
-      code --goto boj/$number/$number.cpp
+    if $ENABLE_MARKDOWN; then
+      code --goto boj/$number/$number.md
     fi
 
     if $ENABLE_PYTHON; then
       code --goto boj/$number/$number.py
     fi
 
-    if $ENABLE_MARKDOWN; then
-      code --goto boj/$number/$number.md
+    if $ENABLE_CPP; then
+      code --goto boj/$number/$number.cpp
     fi
     ;;
   3)

@@ -12,19 +12,23 @@ target_test_number=$3
 if ls boj/$dir/$dir.py >/dev/null 2>&1; then \
 
   if [ "$INIT_TEST" -ne 0 ] && ! ls boj/$dir/test-input-$INIT_TEST.txt >/dev/null 2>&1; then \
-    .util/.util_function.sh 2 $dir
-
+    is_first=true
+    first_value=0
     for i in $(seq 1 $INIT_TEST); do
-      touch boj/$dir/test-input-$i.txt
-      touch boj/$dir/test-output-$i.txt
-      if $ENABLE_OPEN_TEST_FILE_WHEN_CRAWLING_FAILED; then
+      if ! ls boj/$dir/test-input-$i.txt >/dev/null 2>&1; then 
+        if $is_first; then
+          is_first=false
+          first_value=$i 
+        fi
+        touch boj/$dir/test-input-$i.txt
+        touch boj/$dir/test-output-$i.txt
         code boj/$dir/test-input-$i.txt
         code boj/$dir/test-output-$i.txt
       fi
     done
 
-    if $ENABLE_OPEN_TEST_FILE_WHEN_CRAWLING_FAILED; then
-      code boj/$dir/test-input-1.txt
+    if ! $is_first; then
+      code boj/$dir/test-input-$first_value.txt
     fi
 
     echo
