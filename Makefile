@@ -51,8 +51,9 @@ help:
 	@echo "         - boj problem number (e.g., 18111) to create a directory and files"
 	@echo "         - Run all tests for [p_number] problem"
 	@echo
-	@echo "$(GREEN)make [p_number] t=[t_number]$(RESET)"
+	@echo "$(GREEN)make [p_number] t=[t_number | i]$(RESET)"
 	@echo "         - Run test case [t_number]"
+	@echo "         - When \"t=i\", manual mode lets you enter test cases directly"
 	@echo
 	@echo "$(GREEN)make [p_number] i=[i_number]$(RESET)"
 	@echo "         - Create test case files numbered 1 to [i_number]"
