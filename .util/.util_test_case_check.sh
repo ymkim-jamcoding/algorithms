@@ -29,6 +29,7 @@ else
         if $ENABLE_PRINT_AUTO_TEST_OUTPUT; then
             cat "boj/$problem_number/t_${i}_output_mine.txt";
         fi
+        echo
     done
     echo "- $correct_count/$test_case";
 fi
