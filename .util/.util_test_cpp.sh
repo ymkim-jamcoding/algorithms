@@ -8,8 +8,8 @@ fi
 dir=$1
 test_count=$2
 target_test_number=$3
-# -Wall -Wextra -Werror -Wno-return-type
-flag="-Wno-return-type"
+# -Wall -Wextra -Werror -Werror=return-type
+flag="-Werror=return-type"
 
 if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
   if $ENABLE_AUTO_TEST; then
