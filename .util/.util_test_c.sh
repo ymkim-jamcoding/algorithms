@@ -1,7 +1,7 @@
 #!/bin/bash
 source .env
 
-if ! $ENABLE_CPP; then
+if ! $ENABLE_C; then
    exit 0;
 fi
 
@@ -11,16 +11,16 @@ target_test_number=$3
 # -Wall -Wextra -Werror -Werror=return-type
 flag="-Werror=return-type"
 
-if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
+if ls boj/$dir/$dir.c >/dev/null 2>&1; then \
   if $ENABLE_AUTO_TEST; then
     if [[ "$target_test_number" == "i" ]]; then
-      g++ -std=c++17 ${flag} -o boj/$dir/$dir.out boj/$dir/$dir.cpp;
+      gcc -std=c17 ${flag} -o boj/$dir/$dir.out boj/$dir/$dir.c;
       ./boj/$dir/$dir.out;
       echo
       exit 0
     fi
   else
-    g++ -std=c++17 ${flag} -o boj/$dir/$dir.out boj/$dir/$dir.cpp
+    gcc -std=c17 ${flag} -o boj/$dir/$dir.out boj/$dir/$dir.c
     ./boj/$dir/$dir.out
     echo
     exit 0
@@ -57,7 +57,7 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
   fi
 
   echo;
-  .util/.util_function.sh 3 "yellow" "[cpp - $dir]"
+  .util/.util_function.sh 3 "yellow" "[c - $dir]"
   if $ENABLE_AUTO_TEST; then
     if [[ "$target_test_number" -gt "$test_count" || "$target_test_number" -lt 0 ]]; then
       echo "$target_test_number is invalid target test number."
@@ -65,24 +65,24 @@ if ls boj/$dir/$dir.cpp >/dev/null 2>&1; then \
       exit 9
     fi
 
-    python3 .util/.util_cpp_replacement.py $dir;
-    g++ -std=c++17 ${flag} -o boj/$dir/$dir.out boj/$dir/_solve_$dir.cpp .util/.template_cpp_main.cpp;
+    python3 .util/.util_c_replacement.py $dir;
+    gcc -std=c17 ${flag} -o boj/$dir/$dir.out boj/$dir/_solve_$dir.c .util/.template_c_main.c;
     ./boj/$dir/$dir.out $dir $test_count $target_test_number;
     .util/.util_test_case_check.sh $dir $test_count $target_test_number;
-    rm boj/$dir/_solve_$dir.cpp
+    rm boj/$dir/_solve_$dir.c
   fi
 
 else \
-  cp my_cpp_template.cpp boj/$dir/$dir.cpp;
+  cp my_c_template.c boj/$dir/$dir.c;
 
 if [ "$(uname)" = "Darwin" ]; then
 sed -i '' "1i\\
 // https://www.acmicpc.net/problem/$dir
-" boj/$dir/$dir.cpp
+" boj/$dir/$dir.c
 else
 sed -i "1i\\
 // https://www.acmicpc.net/problem/$dir
-" boj/$dir/$dir.cpp
+" boj/$dir/$dir.c
 fi
 fi
 

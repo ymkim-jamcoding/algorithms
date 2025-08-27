@@ -27,6 +27,12 @@ options = [
         "py",
         os.getenv("ENABLE_PYTHON", "false").lower() == "true"
     ],
+    [
+        "c",
+        "## c",
+        "c",
+        os.getenv("ENABLE_C", "false").lower() == "true"
+    ],
 ]
 
 file_number = sys.argv[1]
@@ -60,7 +66,7 @@ def run(index):
 
     for line in after_code_section:
         if not skip_mode:
-            if delimiter in line:
+            if delimiter == line.strip():
                 skip_mode = True
                 continue
             else:
@@ -70,11 +76,14 @@ def run(index):
                 skip_mode = False
 
     insert_code = []
-    insert_code.append(f"{delimiter}")
+    insert_code.append(f"\n{delimiter}")
     insert_code.append(
         f"\n```{options[index][Pos.LANGUAGE.value]} title=\"boj/{file_number}.{options[index][Pos.EXT.value]}\"\n")
     insert_code.append(content)
     insert_code.append("\n```\n")
+
+    while cleaned_after_code_section and cleaned_after_code_section[-1] == "\n":
+        cleaned_after_code_section.pop()
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.writelines(before_code_section)

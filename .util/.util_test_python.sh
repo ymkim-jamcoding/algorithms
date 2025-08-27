@@ -54,7 +54,7 @@ if ls boj/$dir/$dir.py >/dev/null 2>&1; then \
   fi
 
   echo;
-  echo "[python - $dir]";
+  .util/.util_function.sh 3 "yellow" "[python - $dir]"
   if $ENABLE_AUTO_TEST; then
 
     if [[ "$target_test_number" -gt "$test_count" || "$target_test_number" -lt 0 ]]; then

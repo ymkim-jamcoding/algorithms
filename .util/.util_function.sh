@@ -4,7 +4,7 @@ source .env
 YELLOW="\033[38;5;208m"
 GREEN="\033[38;5;34m"
 RED="\033[38;5;196m"
-RESET="\033[0m"
+END="\033[0m"
 
 case=$1
 number=$2
@@ -42,6 +42,10 @@ case $case in
 
     if $ENABLE_PYTHON; then
       code --goto boj/$number/$number.py
+    fi
+
+    if $ENABLE_C; then
+      code --goto boj/$number/$number.c
     fi
 
     if $ENABLE_CPP; then
